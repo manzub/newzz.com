@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-3">
+        {% if session['is_admin'] %}
+        <!-- html content here -->
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h4>Payment requests</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-bordered table-responsive">
+                        <table class="table" id='all_cashouts_div'>
+                            <thead>
+                                <tr>
+                                    <td>S/N</td>
+                                    <td>USER EMAIL</td>
+                                    <td>AMOUNT</td>
+                                    <td>PAYMENT TYPE</td>
+                                    <td colspan="2">ACTIONS</td>
+                                </tr>
+                            </thead>
+                            <tbody id='rows'>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <nav>
+                        <ul class="pagination">
+                            {% for page in pages %}
+                                <!-- onclick get next page -->
+                                <li class="page-item"><a onclick="all_cashouts(10*parseInt('{{page}}'))" class="page-link">{{page}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <form method="post">
+                    <div class="form-group">
+                        {{payopt_form.hidden_tag()}}
+                        {{payopt_form.read_payopt.label}}
+                        {{payopt_form.read_payopt(class='form-control',value=payopts[0])}}
+                    </div>
+                    <div class="form-group">
+                        {{payopt_form.onclick_payopt.label}}
+                        {{payopt_form.onclick_payopt(class='form-control',value=payopts[1])}}
+                    </div>
+                    <div class="form-group">
+                        {{payopt_form.submit(class='btn btn-primary')}}
+                    </div>
+                </form>
+            </div>
+        {% else %}
+            <form method="post">
+                <div class="form-group">
+                    {{form.hidden_tag()}}
+                    {{form.admin_email.label}}
+                    {{form.admin_email(class='form-control')}}
+                </div>
+                <div class="form-group">
+                    {{form.password.label}}
+                    {{form.password(class='form-control')}}
+                </div>
+                <div class="form-group">
+                    {{form.submit(class='btn btn-primary btn-block')}}
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock content %}

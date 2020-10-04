@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- <link rel="stylesheet" href="/static/css/home.css"> -->
+<div class="container mt-3 news-body">
+    {% if articles_raw[0] %}
+        {% for article in articles_raw %}
+            <div href="{{url_for('read',count=article['id'])}}" class="row newzz-card">
+                <div class="col-5" style="padding-right: 0 !important;">
+                    <img class="card-img" src="{{article['urlToImage']}}" width="100%" height="100px" alt="Card cover image">
+                </div>
+                <div news-id="" class="col-7 news-feed">
+                    <p class="time">{{article['publishedAt']}}</p>
+                    <h4 class="title">{{article['title']|title|truncate(30)}}</h4>
+                    <p class="body">{{article['description']|truncate(50)}}</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock content %}

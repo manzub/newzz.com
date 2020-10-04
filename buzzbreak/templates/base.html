@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="propeller" content="5a2f4d4431be536c9e602bc0230dbd9b">
+    <title>NEWZZ$</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee"> -->
+    <link rel="stylesheet" href="{{url_for('static',filename='fonts/font-awesome.min.css')}}">
+</head>
+<body>
+    <div class="preloader"></div>
+    <!-- <div id="toasti1" class="toasti">
+        <div class="toasti-body">
+            <span>message is hello</span>
+            <span onclick="closeToasti('toasti1')" class="toasti-close">&times;</span>
+        </div>
+    </div> -->
+    <nav class="navbar navbar-expand-md-shadow-sm">
+        <div class="container-fluid">
+            <a href="{{url_for('index')}}" class="navbar-brand">NEWZZ$</a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    {% if session['is_admin'] %}
+                        <a href="{{url_for('admin',token='mynewzzadmin-logout')}}" class="nav-link">Log-out</a>
+                    {% else %}
+                        <a href="{{url_for('how_to')}}" class="nav-link">Guide</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="timeout">
+        <div class="timeout-bar"></div>
+    </div>
+    <div id="content" style="margin-bottom: 80px;">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    {% if not session['is_admin'] %}
+    <div class="footer">
+        <a href="{{url_for('index')}}" class="nav__link">
+            <i class="fa fa-home --icon"></i>
+            <span>Home</span>
+        </a>
+        <a href="{{url_for('dashboard')}}" class="nav__link">
+            <i class="fa fa-cog --icon"></i>
+            <span>Dashboard</span>
+        </a>
+    </div>
+    {% endif %}
+    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/main.js')}}"></script>
+    <!-- <script class="slbcdn" src="https://cp.adnaira.ng/cdn/scdn/scdn.js"></script> -->
+    <script src="https://thaickoo.net/pfe/current/tag.min.js?z=3585059" data-cfasync="false" async></script>
+    <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',3585062,document.body||document.documentElement)</script>
+</body>
+</html>

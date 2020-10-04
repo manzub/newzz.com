@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEWZZ$</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
+    <link rel="stylesheet" href="{{url_for('static',filename='fonts/font-awesome.min.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center" style="font-size: 130px;">404</h1>
+        {% if err %}
+            <p class="text-center">{{err}}</p>
+        {% else %}
+            <p class="text-center">The requested route <b><script>document.write(window.location.pathname)</script></b> not found</p>
+        {% endif %}
+    </div>
+    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/main.js')}}"></script>
+</body>
+</html>

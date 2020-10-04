@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="balance mb-3">
+            {% for account in user.account %}
+                <p class="text-center" style="font-size: 10px;">BALANCE IN (US DOLLARS)</p>
+                <h1 class="text-center">
+                    ${{(account.balance|int)/100000}}
+                </h1>
+                <p class="text-center" style="font-size: 10px;">{{account.balance}} POINTS</p>
+            {% endfor %}
+        </div>
+        <hr>
+        <p class="pl-3 text-secondary" style="font-size: 13px;">CHOOSE AMOUNT TO WITHDRAW</p>
+        <div class="amount_opt mt-2 mb-3">
+            <a id='amount_to1'><span>$2.00</span></a>
+            <a id='amount_to2'><span>$5.00</span></a>
+            <a id='amount_to3'><span>$10.00</span></a>
+        </div>
+        <hr>
+        <p class="pl-3 text-secondary" style="font-size: 13px;">CHOOSE PAYMENT OPTION</p>
+        <div class="pay_opt mt-2 mb-3">
+            {% for payopts in user.payopt %}
+                {% if payopts.extras == "Paypal" %}
+                    <a id="payopt_to" data-opt="1">
+                        <img width="100%" src="{{url_for('static',filename='img/paypal.svg')}}" alt="">
+                    </a>
+                {% elif payopts.extras == "Payoneer" %}
+                    <a id="payopt_to" data-opt="2">
+                        <img width="100%" src="{{url_for('static',filename='img/payoneer.svg')}}" alt="">
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="form-group">
+            <buton id="cashout" class="btn btn-primary btn-block">CASHOUT</buton>
+        </div>
+    </div>
+{% endblock content %}
