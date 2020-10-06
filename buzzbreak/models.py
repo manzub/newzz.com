@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy.sql.sqltypes import DateTime
 from buzzbreak import db
-from sqlalchemy import Column,String,Text,Integer,ForeignKey
+from sqlalchemy import Column,String,Text,Integer,ForeignKey,UniqueConstraint
 from sqlalchemy.orm import relationship,backref
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
@@ -15,7 +15,7 @@ def load_user(user_id):
 class User(db.Model,UserMixin):
     __tablename__ = "users"
     id = Column(Integer,primary_key=True)
-    email = Column(Text)
+    email = Column(Text,unique=True)
     password = Column(Text)
     account = relationship('Accounts',backref='users',lazy=True,cascade="all, delete-orphan")
     payopt = relationship('PayOpt',backref='users',lazy=True,cascade="all, delete-orphan")

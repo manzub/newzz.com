@@ -37,7 +37,6 @@ def newsApi(count=None):
     raw_day = dt.day-1 if dt.day > 1 else dt.day
     day = '0'+str(raw_day) if raw_day < 10 else raw_day
     yesterday = "{}-{}-{}".format(dt.year,month,day)
-    print(yesterday)
     try:
         # if there was page var
         # articles_raw = requests.get('http://newsapi.org/v2/everything?q=apple&from={}&to={}&sortBy=popularity&apiKey=d09a1c4e05634552afe6771f90a78718'.format(yesterday,yesterday)).json()['articles']
@@ -55,6 +54,7 @@ def newsApi(count=None):
             i+=1
             jsonData.append({
                 'id':len(articles['url'])+i,
+                'urlToFile':articles['url'],
                 'title':articles['title'],
                 'description':articles['description'],
                 'urlToImage':articles['urlToImage'],
@@ -113,21 +113,31 @@ def login():
 def signup():
    form = RegisterForm()
    if form.validate_on_submit():
-        new_user = User(
-            email=form.email.data,
-            password=form.password.data
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        user = User.query.filter_by(email=form.email.data).first()
-        new_account = Accounts(
-            balance='0',
-            t_balance='0',
-            user_id=user.id
-        )
-        db.session.add(new_account)
-        db.session.commit()
-        flash("Thanks for joining!")
+        if request.args.get('ref'):
+            upperUserId = request.args.get('ref')[5:]
+            upperUser = User.query.filter_by(id=upperUserId).first()
+            if upperUser is not None:
+                for account in upperUser.account:
+                    account.balance = int(account.balance)+5000
+                    account.t_balance = int(account.t_balance) +5000
+        checkEMail = User.query.filter_by(email=form.email.data).first()
+        if checkEMail == None:
+            new_user = User(
+                email=form.email.data,
+                password=form.password.data
+            )
+            db.session.add(new_user)
+            user = User.query.filter_by(email=form.email.data).first()
+            new_account = Accounts(
+                balance='0',
+                t_balance='0',
+                user_id=user.id
+            )
+            db.session.add(new_account)
+            db.session.commit()
+            flash("Thanks for joining!")
+        else:
+            flash('Email Already Exists')
         return redirect(url_for('login'))
    return render_template("signup.html", form=form)
 
@@ -135,21 +145,19 @@ def signup():
 @login_required
 def dashboard():
     form = AddPayOptForm()
+    radn_pre = ['DxSe1','AWnKT','3RlOm']
     user = User.query.filter_by(email=session['user_email']).first()
+    ref_link = 'newzzdollar.com/signup?ref='+radn_pre[randint(0,2)]+'{}'.format(user.id)
     payopt = PayOpt.query.filter_by(user_id=user.id).first()
     has_opt = False if payopt is None else True
     if form.validate_on_submit():
         if not has_opt:
-            new_payopt = PayOpt(
-                '0',
-                form.payment_email.data,
-                user.id,
-                ''
-            )
-            db.session.add(new_payopt)
+            ppt = PayOpt(0,form.payment_email.data,user.id,'')
+            db.session.add(ppt)
             db.session.commit()
         flash("Payment Option Added!.")
-    return render_template('dashboard.html',form=form,user=user,has_opt=has_opt)
+        return redirect(url_for('dashboard'))
+    return render_template('dashboard.html',form=form,user=user,has_opt=has_opt,ref_link=ref_link)
 
 @app.route('/cashout')
 @login_required

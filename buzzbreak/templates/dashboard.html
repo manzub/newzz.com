@@ -28,6 +28,13 @@
                 <span>Logout</span>
             </a>
         </div>
+        <p class="pl-3">Referral Link</p>
+        <p class="ref-div">
+            <span class="ref-link">{{ref_link}}</span>
+            <i class="fa fa-copy pl-5" onclick="copyRefLink()">
+                <span class="tooltiptext">copy</span>
+            </i>
+        </p>
         <hr>
         {% for message in get_flashed_messages() %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">

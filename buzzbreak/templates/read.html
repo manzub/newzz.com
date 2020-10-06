@@ -1,11 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container mt-3 news-body">
-        <h2 class="news-title">{{article['title']}}</h2>
-        <img src="{{article['urlToImage']}}" width="100%">
-        <p>{{article['description']}}</p>
-        <br>
-        <div class='lbcdn' data-cdnpb="150"></div>
-        <p>{{article['content']}}</p>
+    <div class="timeout">
+        <div class="timeout-bar"></div>
+    </div>
+    <marquee>WAIT 10 SECONDS BEFORE EXITING PAGE</marquee>
+    <div class="container mt-3">
+        <div class="news-body">
+            <h2 class="news-title">{{article['title']}}</h2>
+            <img src="{{article['urlToImage']}}" width="100%">
+            <p>{{article['description']}}</p>
+            <div class="display-ads">
+                <p style="text-decoration:underline;">Ads</p>
+                <div class="expand">
+                    <img src="/static/img/add.png" alt="">
+                </div>
+            </div>
+            <br>
+            <div class="display-ads">
+                <p style="text-decoration: underline;">Ads</p>
+                <img width="100%" src="/static/img/free-bonus.png" alt="">
+            </div>
+            <p>{{article['content']}}</p>
+            <div class="display-ads">
+                <p style="text-decoration: underline;">Download Latest Android Games</p>
+                <img width="100%" src="/static/img/click-here.png" alt="">
+            </div>
+            <div class="display-ads">
+                <p style="text-decoration: underline;">Download Latest Marvel Movies</p>
+                <img width="100%" src="/static/img/download-button.jpg" alt="">
+            </div>
+        </div>
+        <a style="text-decoration: underline;color:red" href="{{article['urlToFile']}}" target="_blank">READ FULL ARTICLE HERE</a>
     </div>
 {% endblock content %}

@@ -1,5 +1,5 @@
 a{
-  color: currentColor !important;
+  color: currentColor;
   text-decoration: none;
 }
 a:hover{
@@ -167,7 +167,7 @@ div.quick-actions, div.amount_opt, div.pay_opt{
 }
 .news-body{
   overflow-x: hidden;
-  padding-bottom: 70px;
+  padding-bottom: 30px;
   .news-title{
       font-size: 27px;
       padding-bottom: 15px;
@@ -223,4 +223,61 @@ div.quick-actions, div.amount_opt, div.pay_opt{
 }
 ul{
   margin-bottom: 0px !important;
+}
+marquee{
+  background-color: #e3e3e3;
+  font-weight: 800;
+}
+.display-ads{
+  background-color: #f0f0f0;
+  margin: 3px 0px;
+}
+.direct-ads{
+  background-color: #e3e3e3;
+}
+.display-ads .expand img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%;
+  padding: 50px 0px;
+}
+.ref-div{
+  margin-top: 10px;
+  border: 0.3px solid #e3e3e3;
+  padding: 5px 10px;
+  margin: 5px 10px;
+}
+.ref-div i {
+  color: #715351;
+}
+.tooltiptext{
+  visibility: hidden;
+  width: 100px;
+  background-color: #f0f0f0;
+  color: rgb(9, 124, 177);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  // position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.tooltiptext::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+.fa-copy:hover .tooltiptext{
+  visibility: visible;
+  opacity: 1;
 }
