@@ -42,3 +42,17 @@ function copyRefLink(){
     document.body.removeChild(elem)
     document.getElementsByClassName('tooltiptext')[0].innerText = 'copied'
 }
+
+if(document.getElementsByClassName('pagination')[0]){
+    var ul = document.getElementsByClassName('pagination')[0]
+    $.ajax({
+        url:'/api/pages',
+        type:'GET',
+        data:'',
+        success:function(data){
+            for(let i=0;i<data.pages.length;i++){
+                ul.innerHTML += '<li class="page-item"><a onclick="all_cashouts(10*parseInt('+i+'))" class="page-link">'+i+'</a></li>'
+            }
+        }
+    })
+}

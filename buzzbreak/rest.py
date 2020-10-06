@@ -163,3 +163,9 @@ class ActionCashout(Resource):
             sendUserMail(4,user.email)
             return {'status':1,'message':'Success'}
         return {'status':0,'message':'Error occured'}
+
+class PagesCashout(Resource):
+    def get(self):
+        cca = Cashouts.query.all()
+        pages = round(len(cca)/10)
+        return {'pages':pages}
